@@ -19,7 +19,9 @@ Z katalogu repozytorium:
 
     python3 -m http.server 4173 --bind 127.0.0.1 --directory website
 
-Następnie otwórz lokalnie port 4173. Strona nie jest wdrożona na domenie.
+Następnie otwórz lokalnie port 4173. Autor zgłosił publikację na
+apexsoftware.app w Cloudflare Pages. Niezależna kontrola publicznych
+odpowiedzi z tego środowiska wymaga dopuszczenia domeny przez jego proxy.
 Podgląd lokalny marki: brand/index.html lub brand/en.html.
 Do publikacji użyj jednego eksportu dla apexsoftware.app:
 
@@ -32,7 +34,9 @@ jest identyczną kopią nowego pakietu. Nie wgrywaj całego katalogu źródłowe
 website zamiast eksportu.
 
 Adres edytuje się w website/deployment.config.json. Autor zgłosił dostępność
-nazwy, ale własność i konfiguracja domeny nie są jeszcze potwierdzone.
+nazwy, jej opłacenie oraz publikację strony. Flaga domainVerified
+dotyczy niezależnej weryfikacji publicznej konfiguracji, nadal oczekującej
+na dostęp sieciowy z tego środowiska.
 Generator nie kupuje domeny i nie publikuje strony.
 Instrukcja: docs/website/HOSTING.pl.md.
 

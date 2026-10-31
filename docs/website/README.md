@@ -1,7 +1,9 @@
 # Strona Apex — PL / EN, tryb jasny i ciemny
 
-Kod: website/. To lokalnie sprawdzona strona statyczna, bez wdrożenia
-na domenę i bez zmiany paczki rozszerzenia.
+Kod: website/. Autor zgłosił wdrożenie strony na apexsoftware.app.
+Lokalne kontrole i publiczny odczyt są rozróżnione: publiczne żądania
+z tego środowiska blokuje proxy. Stan kontroli: live-audit.json.
+Paczka rozszerzenia nie została zmieniona.
 
 Podglądy:
 
@@ -42,7 +44,8 @@ Aktualny wariant łączy markę (website/brand/) i produkt (website/) w jednym
 pakiecie Apex-Software-hosting.zip: /pl/, /en/, /pl/adblocker/ i /en/adblocker/.
 Apex-Website-hosting.zip jest kopią tego samego pakietu pod starszą nazwą.
 Wariant dwóch domen z poprzednich commitów został zastąpiony.
-Autor podał dostępność nazwy; rejestracja i własność nie są potwierdzone.
+Autor zgłosił rejestrację i publikację strony. Weryfikacja publicznej
+konfiguracji z tego środowiska pozostaje zablokowana przez proxy.
 Pełna instrukcja: HOSTING.pl.md.
 
 Podglądy marki mają prefiks brand-, np. brand-desktop-preview.png.

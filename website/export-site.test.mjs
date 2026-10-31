@@ -79,6 +79,46 @@ test('root and slash aliases are explicit while unknown routes retain a real 404
   assert.ok(files.get('404.html').includes('href="/en/"'));
 });
 
+test('all six public pages have absolute self canonical and context-specific reciprocal hreflang links', () => {
+  const siteOrigin = 'https://preview.apex.test';
+  const files = new Map(siteEntries({ ...config, siteOrigin }).map(entry => [entry.name, entry.data.toString()]));
+  for (const suffix of ['', 'adblocker/', 'adblocker/privacy/']) {
+    for (const language of ['pl', 'en']) {
+      const route = `/${language}/${suffix}`;
+      const html = files.get(route.slice(1) + 'index.html');
+      const head = /<head\b[^>]*>([\s\S]*?)<\/head>/i.exec(html)[1];
+      assert.deepEqual([...head.matchAll(/<link rel="canonical" href="([^"]+)">/g)].map(match => match[1]), [siteOrigin + route]);
+      assert.deepEqual([...head.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">/g)].map(match => [match[1], match[2]]), [
+        ['pl', `${siteOrigin}/pl/${suffix}`],
+        ['en', `${siteOrigin}/en/${suffix}`],
+      ]);
+      assert.equal((head.match(/\bhreflang\s*=/gi) || []).length, 2, 'existing alternate metadata must be replaced, not duplicated');
+      const body = html.slice(html.indexOf('<body'));
+      assert.ok(!body.includes(siteOrigin), 'ordinary navigation stays root-relative');
+    }
+  }
+});
+
+test('existing canonical and language metadata are replaced while unrelated alternate links remain', () => {
+  const source = fs.mkdtempSync(path.join(os.tmpdir(), 'apex-seo-source-'));
+  try {
+    fs.mkdirSync(path.join(source, 'brand'));
+    fs.mkdirSync(path.join(source, 'assets'));
+    for (const file of ['styles.css', 'app.js', 'assets/apex.svg']) fs.writeFileSync(path.join(source, file), '');
+    const html = `<html lang="pl"><head><link href="https://stale.example/old" rel='canonical'><link href="index.html" hreflang="pl" rel="alternate"><link rel="alternate" type="application/rss+xml" href="https://feeds.example/news"></head><body><a href="index.html">Home</a></body></html>`;
+    for (const file of ['brand/index.html', 'brand/en.html', 'index.html', 'en.html', 'privacy.html', 'privacy-en.html']) fs.writeFileSync(path.join(source, file), html);
+    const files = new Map(siteEntries(config, source).map(entry => [entry.name, entry.data.toString()]));
+    const result = files.get('pl/index.html');
+    assert.ok(!result.includes('stale.example'));
+    assert.equal((result.match(/\brel="canonical"/g) || []).length, 1);
+    assert.equal((result.match(/\bhreflang\s*=/g) || []).length, 2);
+    assert.ok(result.includes('<link rel="alternate" type="application/rss+xml" href="https://feeds.example/news">'));
+    assert.ok(result.includes('<a href="/pl/">Home</a>'));
+  } finally {
+    fs.rmSync(source, { recursive: true, force: true });
+  }
+});
+
 test('export writes a single combined hosting ZIP and its byte-identical legacy alias', () => {
   const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'apex-site-export-'));
   try {

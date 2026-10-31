@@ -1,0 +1,181 @@
+{
+  "checkedAt": "2026-10-31T10:15:24.341045+01:00",
+  "site": "https://apexsoftware.app",
+  "status": "INCOMPLETE_LIVE_ACCESS_BLOCKED",
+  "userReported": {
+    "domainRegisteredAndPaid": true,
+    "cloudflarePagesDeployment": true,
+    "project": "apex-software",
+    "siteAppearsToWork": true
+  },
+  "liveRequests": [
+    {
+      "url": "https://apexsoftware.app/",
+      "result": "PROXY_CONNECT_DENIED",
+      "proxyStatus": 403,
+      "originHttpStatus": null
+    },
+    {
+      "url": "https://apex-software.pages.dev/",
+      "result": "PROXY_CONNECT_DENIED",
+      "proxyStatus": 403,
+      "originHttpStatus": null
+    }
+  ],
+  "environmentNetwork": {
+    "draftAdditionsSaved": [
+      "apexsoftware.app",
+      "www.apexsoftware.app",
+      "apex-software.pages.dev"
+    ],
+    "appliedToRuntime": false,
+    "requiredAction": "Review/save the prepared environment configuration and publish it in Codex/ChatGPT environment settings. This is separate from Cloudflare DNS."
+  },
+  "verified": {
+    "exportUnitTests": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    "publicFiles": 13,
+    "zipIntegrity": "PASS",
+    "headMetadata": "PASS: absolute self canonicals and reciprocal PL/EN hreflang for six pages",
+    "localBrowser": {
+      "method": "Chromium against locally intercepted exported assets; single domain and nested product routes; no public deployment or domain ownership test",
+      "results": [
+        {
+          "kind": "brand",
+          "lang": "pl",
+          "theme": "light",
+          "widths": [
+            320,
+            375,
+            768,
+            1024,
+            1440
+          ],
+          "status": "PASS"
+        },
+        {
+          "kind": "brand",
+          "lang": "pl",
+          "theme": "dark",
+          "widths": [
+            320,
+            375,
+            768,
+            1024,
+            1440
+          ],
+          "status": "PASS"
+        },
+        {
+          "kind": "brand",
+          "lang": "en",
+          "theme": "light",
+          "widths": [
+            320,
+            375,
+            768,
+            1024,
+            1440
+          ],
+          "status": "PASS"
+        },
+        {
+          "kind": "brand",
+          "lang": "en",
+          "theme": "dark",
+          "widths": [
+            320,
+            375,
+            768,
+            1024,
+            1440
+          ],
+          "status": "PASS"
+        },
+        {
+          "kind": "product",
+          "lang": "pl",
+          "theme": "light",
+          "widths": [
+            320,
+            375,
+            768,
+            1024,
+            1440
+          ],
+          "status": "PASS"
+        },
+        {
+          "kind": "product",
+          "lang": "pl",
+          "theme": "dark",
+          "widths": [
+            320,
+            375,
+            768,
+            1024,
+            1440
+          ],
+          "status": "PASS"
+        },
+        {
+          "kind": "product",
+          "lang": "en",
+          "theme": "light",
+          "widths": [
+            320,
+            375,
+            768,
+            1024,
+            1440
+          ],
+          "status": "PASS"
+        },
+        {
+          "kind": "product",
+          "lang": "en",
+          "theme": "dark",
+          "widths": [
+            320,
+            375,
+            768,
+            1024,
+            1440
+          ],
+          "status": "PASS"
+        }
+      ]
+    }
+  },
+  "actualDownload": {
+    "url": "https://github.com/Bonziuu/Apex-AdBlocker/releases/latest/download/Apex-AdBlocker.zip",
+    "httpStatus": 200,
+    "bytes": 3434049,
+    "sha256": "020fb5cf828af0870fab5c7c44f6a6437e8696fc889ebaf9ecfdab86c28875ee",
+    "extensionVersion": "1.0.0",
+    "extensionFiles": 116,
+    "matchesSubmittedReference": true,
+    "referenceScope": "Matches the ZIP provided to the user for CWS, not a file fetched from the CWS dashboard."
+  },
+  "fixPrepared": {
+    "scope": "Head metadata only; no visible layout or runtime change.",
+    "canonical": "Absolute self canonical for all six localized pages.",
+    "hreflang": "Fully qualified reciprocal PL/EN links scoped to brand, product and policy.",
+    "deployedToCloudflare": false
+  },
+  "remainingLiveChecks": [
+    "Public DNS/delegation/DNSSEC",
+    "TLS and HTTPS redirects",
+    "Root and slash redirects on Cloudflare",
+    "200 on all six localized pages and static assets",
+    "404 for unknown path",
+    "www configuration/canonical redirect",
+    "Live loaded scripts/console/network and responsive behavior",
+    "Live site matches uploaded package",
+    "Cloudflare robots/crawler behavior and production response headers"
+  ],
+  "limitations": "Local browser checks intercepted requests and served local files. They do not prove public DNS, TLS, Cloudflare routing, site availability or deployed byte identity. No security/accessibility certification or full extension-readiness claim."
+}

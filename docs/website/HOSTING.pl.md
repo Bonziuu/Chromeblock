@@ -14,10 +14,15 @@ katalogu; wejście bez niego ma przekierowanie.
 
 ## Status i koszty
 
-Autor podał, że apexsoftware.app jest dostępna. Rejestracja, własność,
-konfiguracja DNS i cena odnowienia nie zostały potwierdzone. Nie dokonano
-zakupu ani publicznego wdrożenia. Konfiguracja: website/deployment.config.json.
-Flaga domainVerified pozostaje false do czasu potwierdzenia konfiguracji.
+Autor zgłosił zakup i opłacenie domeny w OVH, wgranie plików do projektu
+Cloudflare Pages apex-software oraz uruchomienie apexsoftware.app.
+Nie potwierdzono jeszcze niezależnie publicznych odpowiedzi HTTP/DNS/TLS:
+żądania z tego środowiska są blokowane przez jego proxy przed połączeniem
+ze stroną (CONNECT 403). Nie jest to kod HTTP pochodzący z witryny.
+Konfiguracja: website/deployment.config.json. Flaga domainVerified
+pozostaje false do czasu niezależnej weryfikacji; nie neguje zgłoszonego zakupu.
+Nowy eksport zawiera poprawione canonical i bezwzględne hreflang dla
+wszystkich sześciu stron. Wgranie nowego ZIP-a to osobny krok.
 
 Proponowany wariant: domena w OVH i jeden projekt Cloudflare Pages
 na statycznym hostingu. Nie są potrzebne serwer aplikacyjny, baza danych,
@@ -47,7 +52,8 @@ Odtworzenie pakietu z katalogu repozytorium:
     node --test website/export-site.test.mjs
 
 Eksport nie zawiera narzędzi, dokumentacji, testów ani ZIP-a rozszerzenia.
-Nie dodano canonical/sitemap dla domeny, której własności nie potwierdzono.
+Dodano canonical i wzajemne hreflang z adresem apexsoftware.app.
+Nie dodano sitemapy ani zmiany ustawień botów po stronie Cloudflare.
 
 Podgląd lokalny Apex-Website-preview.zip zachowuje układ plikowy:
 Apex-Website/brand/index.html pokazuje markę, a index.html produkt.
@@ -73,8 +79,8 @@ To paczka do obejrzenia; do hostingu używa się Apex-Software-hosting.zip.
    przekierowanie na jeden wybrany adres główny.
 8. Sprawdzić publicznie wszystkie ścieżki z tabeli, przełączniki języka,
    tryb jasny i ciemny, pobieranie, politykę oraz zachowanie nieistniejącego URL.
-9. Po potwierdzeniu działania zaktualizować domainVerified oraz metadane
-   canonical/sitemap i ewentualną konfigurację indeksowania.
+9. Po niezależnym potwierdzeniu działania zaktualizować domainVerified,
+   sprawdzić canonical/hreflang oraz ewentualnie dodać sitemapę.
 
 Adres pages.dev służy do testów/konfiguracji; użytkownicy mogą korzystać
 z apexsoftware.app. Stronę można później przenieść na inny hosting

@@ -13,6 +13,11 @@ const PRODUCT_PAGES = {
   'privacy.html': '/pl/adblocker/privacy/',
   'privacy-en.html': '/en/adblocker/privacy/',
 };
+const LANGUAGE_ROUTES = {
+  brand: { pl: BRAND_PAGES['index.html'], en: BRAND_PAGES['en.html'] },
+  product: { pl: PRODUCT_PAGES['index.html'], en: PRODUCT_PAGES['en.html'] },
+  privacy: { pl: PRODUCT_PAGES['privacy.html'], en: PRODUCT_PAGES['privacy-en.html'] },
+};
 
 function origin(value) {
   const url = new URL(value);
@@ -51,6 +56,23 @@ export function hostedHtml(html, kind, rawConfig) {
   });
 }
 
+/** Head metadata uses absolute URLs; visible navigation keeps root-relative routes. */
+function seoHtml(html, context, language, siteOrigin) {
+  const routes = LANGUAGE_ROUTES[context];
+  const metadata = [
+    `<link rel="canonical" href="${siteOrigin}${routes[language]}">`,
+    ...Object.entries(routes).map(([lang, route]) => `<link rel="alternate" hreflang="${lang}" href="${siteOrigin}${route}">`),
+  ].join('\n');
+  return html.replace(/(<head\b[^>]*>)([\s\S]*?)(<\/head\s*>)/i, (_, opening, content, closing) => {
+    const cleaned = content.replace(/<link\b[^>]*>/gi, tag => {
+      const match = /\brel\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i.exec(tag);
+      const rel = (match?.[1] || match?.[2] || match?.[3] || '').toLowerCase().split(/\s+/);
+      return rel.includes('canonical') || (rel.includes('alternate') && /\bhreflang\s*=/i.test(tag)) ? '' : tag;
+    });
+    return opening + cleaned + '\n' + metadata + '\n' + closing;
+  });
+}
+
 function entryPage() {
   return '<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=/pl/"><title>Apex</title></head><body><a href="/pl/" lang="pl">Polski</a> · <a href="/en/" lang="en">English</a></body></html>\n';
 }
@@ -60,18 +82,21 @@ function notFoundPage() {
 }
 
 export function siteEntries(config, source = WEBSITE) {
-  deploymentConfig(config);
+  const checked = deploymentConfig(config);
   const entries = PUBLIC_ASSETS.map(name => ({ name, data: fs.readFileSync(path.join(source, name)) }));
   for (const [language, template] of [['pl', 'index.html'], ['en', 'en.html']]) {
     const pages = [
-      { name: `${language}/index.html`, file: `brand/${template}`, kind: 'brand' },
-      { name: `${language}/adblocker/index.html`, file: template, kind: 'product' },
-      { name: `${language}/adblocker/privacy/index.html`, file: language === 'pl' ? 'privacy.html' : 'privacy-en.html', kind: 'product' },
+      { name: `${language}/index.html`, file: `brand/${template}`, kind: 'brand', context: 'brand' },
+      { name: `${language}/adblocker/index.html`, file: template, kind: 'product', context: 'product' },
+      { name: `${language}/adblocker/privacy/index.html`, file: language === 'pl' ? 'privacy.html' : 'privacy-en.html', kind: 'product', context: 'privacy' },
     ];
     for (const page of pages) {
       entries.push({
         name: page.name,
-        data: Buffer.from(hostedHtml(fs.readFileSync(path.join(source, page.file), 'utf8'), page.kind, config)),
+        data: Buffer.from(seoHtml(
+          hostedHtml(fs.readFileSync(path.join(source, page.file), 'utf8'), page.kind, checked),
+          page.context, language, checked.siteOrigin,
+        )),
       });
     }
   }
@@ -115,7 +140,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   try {
     const result = exportSites();
     console.log(JSON.stringify(result, null, 2));
-    if (!result.domainVerified) console.log('Domain ownership is unverified. Export prepared; no purchase, DNS change or deployment was performed.');
+    if (!result.domainVerified) console.log('Independent live verification is pending. Export rebuilt locally; the running website was not changed.');
   } catch (error) {
     console.error(error.message);
     process.exitCode = 1;
