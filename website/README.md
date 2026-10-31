@@ -1,4 +1,4 @@
-# Strona Apex AdBlocker
+# Strona marki Apex i Apex AdBlocker
 
 Wersje PL i EN: prezentacja, pobieranie ZIP-a, instrukcja instalacji,
 FAQ, kontakt i polityka prywatności rozszerzenia. Statyczne HTML/CSS/JS,
@@ -21,21 +21,20 @@ Z katalogu repozytorium:
 
 Następnie otwórz lokalnie port 4173. Strona nie jest wdrożona na domenie.
 Podgląd lokalny marki: brand/index.html lub brand/en.html.
-Do publikacji dwóch domen użyj oddzielnych eksportów opisanych poniżej.
-
-Do bezpośredniego uploadu samych publicznych plików przygotuj ZIP:
+Do publikacji użyj jednego eksportu dla apexsoftware.app:
 
     node website/export-site.mjs
 
-Wyniki: docs/website/Apex-Brand-hosting.zip dla marki oraz
-docs/website/Apex-AdBlocker-hosting.zip dla produktu.
-Każda witryna ma czyste ścieżki /pl/ i /en/ oraz wspólne zasoby w swoim
-katalogu głównym. Dotychczasowy Apex-Website-hosting.zip jest kopią pakietu
-produktu. Nie wgrywaj całego katalogu website jako jednej z tych witryn.
+Wynik: docs/website/Apex-Software-hosting.zip. Zawiera stronę marki
+na /pl/ i /en/, produkt na /pl/adblocker/ i /en/adblocker/ oraz polityki.
+Wspólne zasoby są w katalogu głównym. Dotychczasowy Apex-Website-hosting.zip
+jest identyczną kopią nowego pakietu. Nie wgrywaj całego katalogu źródłowego
+website zamiast eksportu.
 
-Planowane domeny edytuje się w website/deployment.config.json.
-Są niezweryfikowane; generator nie kupuje ich i nie publikuje plików.
-Pełna instrukcja: docs/website/HOSTING.pl.md.
+Adres edytuje się w website/deployment.config.json. Autor zgłosił dostępność
+nazwy, ale własność i konfiguracja domeny nie są jeszcze potwierdzone.
+Generator nie kupuje domeny i nie publikuje strony.
+Instrukcja: docs/website/HOSTING.pl.md.
 
 Test generatora:
 

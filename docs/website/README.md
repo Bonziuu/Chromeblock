@@ -36,13 +36,19 @@ Nie jest to wynik testów działania rozszerzenia. Istniejące ograniczenia
 walidacji rozszerzenia i licencji cudzych filtrów pozostają opisane
 w docs/webstore/final-release-status.json.
 
-## Strona marki i dwie domeny
+## Jedna domena: apexsoftware.app
 
-Kod strony marki: website/brand/. Przygotowano dwa osobne pakiety
-Apex-Brand-hosting.zip oraz Apex-AdBlocker-hosting.zip z /pl/ i /en/.
-Nazwy domen są propozycjami, nadal wymagają potwierdzenia dostępności
-i własności. Instrukcja: HOSTING.pl.md.
+Aktualny wariant łączy markę (website/brand/) i produkt (website/) w jednym
+pakiecie Apex-Software-hosting.zip: /pl/, /en/, /pl/adblocker/ i /en/adblocker/.
+Apex-Website-hosting.zip jest kopią tego samego pakietu pod starszą nazwą.
+Wariant dwóch domen z poprzednich commitów został zastąpiony.
+Autor podał dostępność nazwy; rejestracja i własność nie są potwierdzone.
+Pełna instrukcja: HOSTING.pl.md.
 
-Podglądy marki mają prefiks brand-, np. brand-desktop-preview.png
-i brand-desktop-preview-en-dark.png. Kontrola obu eksportów:
-deployment-validation.json (lokalne serwowanie plików, bez publicznego wdrożenia).
+Podglądy marki mają prefiks brand-, np. brand-desktop-preview.png.
+Aktualna kontrola eksportu: deployment-validation.json. Jest to lokalna
+walidacja stron, a nie dowód publicznego wdrożenia czy posiadania domeny.
+
+Generator jednej witryny: 6 rzeczywistych testów Node zaliczonych,
+0 błędów i 0 pominięć. Kontrola przeglądarkowa obejmuje markę i produkt
+w PL/EN oraz dwóch motywach, z działającymi odnośnikami w jednej domenie.

@@ -1,5 +1,5 @@
 {
-  "method": "Chromium against locally intercepted exported assets; no public deployment or domain ownership test",
+  "method": "Chromium against locally intercepted exported assets; single domain and nested product routes; no public deployment or domain ownership test",
   "results": [
     {
       "kind": "brand",

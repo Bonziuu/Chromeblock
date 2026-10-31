@@ -1,85 +1,90 @@
-# Dwie strony Apex pod własnymi domenami
+# Apex pod jedną domeną apexsoftware.app
 
-Wybrany plan adresów (nazwy domen nie są jeszcze zweryfikowane):
+Wybrany plan to jedna domena dla marki i wszystkich produktów:
 
-| Strona | Polski | English | Pakiet |
-|---|---|---|---|
-| Marka Apex | getapex.com/pl/ | getapex.com/en/ | Apex-Brand-hosting.zip |
-| Apex AdBlocker | apexadblocker.com/pl/ | apexadblocker.com/en/ | Apex-AdBlocker-hosting.zip |
+| Zawartość | Polski | English |
+|---|---|---|
+| Marka Apex | apexsoftware.app/pl/ | apexsoftware.app/en/ |
+| Apex AdBlocker | apexsoftware.app/pl/adblocker/ | apexsoftware.app/en/adblocker/ |
+| Polityka rozszerzenia | /pl/adblocker/privacy/ | /en/adblocker/privacy/ |
 
-Kliknięcie produktu na stronie marki przenosi do odpowiedniego języka na
-stronie AdBlockera. Stopka produktu prowadzi z powrotem do marki. Języki
-mają własne polityki prywatności rozszerzenia na /pl/privacy/ i /en/privacy/.
-Końcowy ukośnik jest standardowym adresem katalogu; wejście bez niego
-przekierowuje do właściwej strony.
+Przejścia między marką, produktem i polityką zachowują język. Wejście na
+samą domenę prowadzi do /pl/. Końcowy ukośnik jest standardowym adresem
+katalogu; wejście bez niego ma przekierowanie.
 
 ## Status i koszty
 
-Przygotowano i przetestowano pliki, nie wykonano publicznego wdrożenia,
-zakupu domen ani zmian DNS. Dostępność i własność nazw nie są potwierdzone.
-Ustawienia są w website/deployment.config.json; domainsVerified pozostaje false.
-Jeśli nazwa jest zajęta lub cena nie odpowiada budżetowi, wybrać inną i
-odświeżyć oba pakiety po zmianie brandOrigin / productOrigin.
+Autor podał, że apexsoftware.app jest dostępna. Rejestracja, własność,
+konfiguracja DNS i cena odnowienia nie zostały potwierdzone. Nie dokonano
+zakupu ani publicznego wdrożenia. Konfiguracja: website/deployment.config.json.
+Flaga domainVerified pozostaje false do czasu potwierdzenia konfiguracji.
 
-Proponowany hosting to dwa statyczne projekty Cloudflare Pages.
-Nie są potrzebne serwer aplikacyjny, baza danych ani płatny plan funkcji.
-Domeny rejestruje się oddzielnie. Przed zakupem sprawdzić dostępność,
-cenę odnowienia i podatki u operatora; nie zakładać, że promocja pierwszego
-roku obejmuje kolejne lata. Ten dokument nie podaje aktualnej oferty cenowej.
+Proponowany wariant: domena w OVH i jeden projekt Cloudflare Pages
+na statycznym hostingu. Nie są potrzebne serwer aplikacyjny, baza danych,
+płatne funkcje ani kupowany osobno certyfikat SSL. Hosting zapewnia HTTPS,
+którego wymaga również końcówka .app.
 
-## Pliki do wgrania
+Przed zakupem porównać cenę brutto pierwszego roku i odnowienia. Ten dokument
+nie podaje aktualnej oferty operatora ani nie autoryzuje zakupu.
 
-- Apex-Brand-hosting.zip — tylko do projektu marki getapex.com.
-- Apex-AdBlocker-hosting.zip — tylko do projektu produktu apexadblocker.com.
-- Apex-Website-hosting.zip — zgodna bajtowo kopia pakietu AdBlockera,
-  zachowana dla starej nazwy; nie jest trzecim projektem.
+## Pakiet do wgrania
 
-Każdy ZIP ma index.html w katalogu głównym, katalogi językowe, zasoby,
-konfigurację przekierowań oraz stronę 404. Nie zawiera narzędzi
-programistycznych, dokumentacji, testów ani paczki rozszerzenia.
-Eksport nie zawiera canonical/sitemap dla niepotwierdzonych domen.
+**Apex-Software-hosting.zip** jest pełną stroną marki i AdBlockera.
+Wgrywa się go do JEDNEGO projektu Cloudflare Pages. Index.html znajduje się
+w katalogu głównym; katalogi pl/ i en/ zawierają gotowe strony językowe,
+produkt i polityki. ZIP ma wspólne style, skrypt, logo, stronę 404
+oraz konfigurację przekierowań.
 
-Odtworzenie z repozytorium:
+Apex-Website-hosting.zip jest identyczną kopią zachowaną pod starą nazwą.
+Wariant dwóch domen getapex.com / apexadblocker.com został zastąpiony.
+Dawne pakiety i instrukcje z poprzednich commitów nie są przeznaczone
+na apexsoftware.app.
+
+Odtworzenie pakietu z katalogu repozytorium:
 
     node website/refresh-privacy.mjs
     node website/export-site.mjs
     node --test website/export-site.test.mjs
 
-Lokalny podgląd z Apex-Website-preview.zip: rozpakować i otworzyć
-Apex-Website/brand/index.html; wersja EN: brand/en.html. Ten ZIP służy
-do oglądania, nie do wgrywania zamiast dwóch pakietów hostingowych.
+Eksport nie zawiera narzędzi, dokumentacji, testów ani ZIP-a rozszerzenia.
+Nie dodano canonical/sitemap dla domeny, której własności nie potwierdzono.
 
-## Publikacja w Cloudflare Pages
+Podgląd lokalny Apex-Website-preview.zip zachowuje układ plikowy:
+Apex-Website/brand/index.html pokazuje markę, a index.html produkt.
+To paczka do obejrzenia; do hostingu używa się Apex-Software-hosting.zip.
 
-1. Sprawdzić dostępność obu domen i koszty; kupić wyłącznie zaakceptowane nazwy.
-2. Utworzyć konto Cloudflare. Przygotować dwa projekty Pages z bezpośrednim
-   przesyłaniem plików, np. apex-brand i apex-adblocker.
-3. Wgrać Apex-Brand-hosting.zip do pierwszego i Apex-AdBlocker-hosting.zip
-   do drugiego. Nie dodawać katalogu nadrzędnego wokół plików z ZIP-a.
-4. Po zakupie domen w każdym projekcie dodać właściwą domenę niestandardową.
-   Przejść instrukcje DNS wyświetlone dla konkretnych domen. Zachować
-   rekordy poczty i innych istniejących usług. Nie zgadywać wartości rekordów.
-5. Poczekać na aktywację domen i HTTPS. Sprawdzić adresy główne oraz www,
-   wybrać adres główny i ustawić przekierowanie z drugiego.
-6. Sprawdzić publicznie /pl/, /en/, przełączanie języka i motywu, pobieranie,
-   polityki, nieistniejący adres oraz przejście między dwiema domenami.
-7. Po potwierdzeniu nazw i ich działania zaktualizować domainsVerified,
-   metadane canonical/sitemap i ewentualną konfigurację indeksowania.
+## Publikacja krok po kroku
 
-Adresy dostawcy hostingu służą do testów i konfiguracji. Odwiedzający
-korzystają z własnych domen; można je później przenieść na inny hosting.
-Przed podpięciem domen przejścia między stronami wskazują planowane adresy,
-a nie tymczasowe adresy projektów Pages.
+1. Sprawdzić cenę brutto rejestracji i odnowienia apexsoftware.app w OVH.
+   Dokończyć zakup osobiście na koncie operatora, jeśli cena mieści się
+   w zaakceptowanym budżecie. Hosting ani płatny SSL w OVH nie są potrzebne.
+2. W Cloudflare dodać apexsoftware.app jako domenę i wybrać plan Free.
+   Sprawdzić/importować istniejące rekordy, zwłaszcza poczty, jeśli są używane.
+3. Cloudflare pokaże serwery nazw przypisane do domeny. W panelu OVH,
+   w ustawieniach Serwery DNS, wpisać dokładnie te wartości.
+   Nie zgadywać serwerów ani rekordów DNS.
+4. Poczekać na status aktywnej domeny w Cloudflare.
+5. Utworzyć jeden projekt Pages z bezpośrednim uploadem plików,
+   np. apex-software. Wgrać Apex-Software-hosting.zip bez dodatkowego
+   folderu nadrzędnego.
+6. W ustawieniach domen projektu Pages dodać apexsoftware.app.
+   Wykonać instrukcje konfiguracji DNS pokazane dla tej domeny.
+7. Poczekać na aktywację domeny i HTTPS. Opcjonalnie dodać www i ustawić
+   przekierowanie na jeden wybrany adres główny.
+8. Sprawdzić publicznie wszystkie ścieżki z tabeli, przełączniki języka,
+   tryb jasny i ciemny, pobieranie, politykę oraz zachowanie nieistniejącego URL.
+9. Po potwierdzeniu działania zaktualizować domainVerified oraz metadane
+   canonical/sitemap i ewentualną konfigurację indeksowania.
 
-## Sprawdzenia i ograniczenia
+Adres pages.dev służy do testów/konfiguracji; użytkownicy mogą korzystać
+z apexsoftware.app. Stronę można później przenieść na inny hosting
+z zachowaniem domeny.
 
-Wykonano 3 testy Node generatora oraz lokalne kontrole obu stron w Chromium,
-w dwóch językach, dwóch motywach i pięciu szerokościach. Test przeglądarkowy
-przechwytywał żądania i serwował wyłącznie lokalne pliki; nie potwierdza
-własności domen, działania DNS, HTTPS ani faktycznych przekierowań Cloudflare.
-Wynik: deployment-validation.json.
+## Granice walidacji
 
-Przed publicznym udostępnieniem trzeba również rozstrzygnąć opisane wcześniej
-kwestie dystrybucji filtrów i walidacji rozszerzenia, a także sprawdzić
-praktyki hostingu dotyczące logów i przetwarzania danych. Dołączone polityki
-opisują rozszerzenie. Samo wdrożenie nie gwarantuje widoczności w wyszukiwarce.
+Testy lokalne nie potwierdzają rejestracji, własności, DNS, certyfikatu
+ani działania Cloudflare. Nie zastępują brakujących testów rozszerzenia.
+Przed publicznym udostępnieniem należy rozstrzygnąć wcześniej opisane
+kwestie licencji filtrów i walidacji aplikacji oraz sprawdzić praktyki
+hostingu dotyczące logów i danych. Dołączone polityki opisują rozszerzenie.
+Samo opublikowanie strony nie gwarantuje jej obecności w wyszukiwarce.
