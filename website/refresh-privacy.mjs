@@ -15,9 +15,17 @@ const sections = {
 };
 for (const [language, markdown] of Object.entries(sections)) {
   const home = language === 'pl' ? '← Strona główna Apex' : '← Apex home';
+  const homeFile = language === 'pl' ? 'index.html' : 'en.html';
   const html = policyHtml(markdown, language)
-    .replace('<nav>', '<nav><a href="index.html">' + home + '</a> · ')
-    .replace('</style>', '@media(prefers-color-scheme:dark){a{color:#75d3cc}}</style>');
+    .replace('<nav>', '<nav><a href="' + homeFile + '">' + home + '</a> · ')
+    .replace(
+      '<meta name="generator"',
+      '<meta name="color-scheme" content="light dark"><meta name="theme-color" content="#f5f9fa" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0b1d26" media="(prefers-color-scheme: dark)"><meta name="generator"',
+    )
+    .replace(
+      '</style>',
+      'html{background:#f5f9fa;color:#11323d}@media(prefers-color-scheme:dark){html{background:#0b1d26;color:#e0eef3}a{color:#75d3cc}}</style>',
+    );
   const file = language === 'pl' ? 'privacy.html' : 'privacy-en.html';
   fs.writeFileSync(path.join(dir, file), html);
   console.log('Updated ' + file);

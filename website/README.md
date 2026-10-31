@@ -1,9 +1,17 @@
 # Strona Apex AdBlocker
 
-Pierwsza wersja PL: prezentacja, pobieranie ZIP-a, instrukcja instalacji,
+Wersje PL i EN: prezentacja, pobieranie ZIP-a, instrukcja instalacji,
 FAQ, kontakt i polityka prywatności rozszerzenia. Statyczne HTML/CSS/JS,
 bez zależności produkcyjnych, zewnętrznych fontów, analityki lub formularzy.
 Kod strony nie zapisuje cookies ani localStorage.
+
+index.html to strona polska, en.html — angielska. Przełącznik PL / EN
+działa bez JavaScriptu. Komunikaty schowka dobierają język z atrybutu lang.
+
+Kolorystyka nawiązuje do logo (#22b8a8 / #0f7f8c). Tryb jasny i ciemny
+przełącza się automatycznie przez prefers-color-scheme, także po zmianie
+ustawień systemu/przeglądarki przy już otwartej stronie. Dotyczy obu języków
+oraz polityk prywatności. Strona nie zapisuje osobnej preferencji motywu.
 
 ## Podgląd lokalny
 

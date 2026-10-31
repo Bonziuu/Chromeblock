@@ -26,6 +26,16 @@ if (menu && navigation) {
 }
 
 const toast = document.querySelector('.toast');
+const isEnglish = document.documentElement.lang === 'en';
+const copyMessages = isEnglish
+  ? {
+      success: 'Address copied. Paste it into the Chrome address bar.',
+      fallback: 'Copy this address manually: ',
+    }
+  : {
+      success: 'Skopiowano adres. Wklej go do paska Chrome.',
+      fallback: 'Skopiuj ręcznie adres: ',
+    };
 let toastTimer;
 document.querySelectorAll('[data-copy]').forEach((button) => {
   button.addEventListener('click', async () => {
@@ -34,9 +44,9 @@ document.querySelectorAll('[data-copy]').forEach((button) => {
     try {
       if (!navigator.clipboard) throw new Error('Clipboard unavailable');
       await navigator.clipboard.writeText(value);
-      message = 'Skopiowano adres. Wklej go do paska Chrome.';
+      message = copyMessages.success;
     } catch {
-      message = 'Skopiuj ręcznie adres: ' + value;
+      message = copyMessages.fallback + value;
       const selection = window.getSelection();
       const code = button.querySelector('code');
       if (selection && code) {

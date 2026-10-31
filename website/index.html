@@ -4,8 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Mniej reklam, więcej miejsca na treść. Poznaj Apex AdBlocker, pobierz rozszerzenie do Chrome i sprawdź, jak je zainstalować.">
-  <meta name="theme-color" content="#112d2b">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f5f9fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1d26" media="(prefers-color-scheme: dark)">
   <title>Apex AdBlocker — więcej miejsca na treść</title>
+  <link rel="alternate" hreflang="pl" href="index.html">
+  <link rel="alternate" hreflang="en" href="en.html">
   <link rel="icon" href="assets/apex.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
@@ -15,11 +19,14 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#start" aria-label="Apex — strona główna"><img src="assets/apex.svg" width="34" height="34" alt=""><span>apex<span class="brand-dot">.</span></span></a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation" hidden>Menu <span aria-hidden="true">☰</span></button>
+      <div class="header-controls">
       <nav id="navigation" aria-label="Nawigacja główna">
         <a href="#mozliwosci">Możliwości</a><a href="#prywatnosc">Prywatność</a><a href="#pomoc">Pomoc</a>
         <a class="nav-download" href="#instalacja">Pobierz Apex <svg class="icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10"/></svg></a>
       </nav>
+      <div class="language-switch" role="group" aria-label="Język strony"><a href="index.html" lang="pl" hreflang="pl" aria-current="page">PL</a><a href="en.html" lang="en" hreflang="en">EN</a></div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation" hidden>Menu <span aria-hidden="true">☰</span></button>
+      </div>
     </div>
   </header>
   <main id="main">
@@ -30,7 +37,7 @@
           <h1 id="hero-heading">Internet.<br>Trochę <em>spokojniej.</em></h1>
           <p class="hero-description">Mniej reklam i śledzenia. Więcej miejsca na to, po co otwierasz przeglądarkę.</p>
           <div class="hero-actions">
-            <a class="button button-mint" href="https://github.com/Bonziuu/Apex-AdBlocker/releases/latest/download/Apex-AdBlocker.zip" data-download>Pobierz dla Chrome <span aria-hidden="true">↓</span></a>
+            <a class="button button-accent" href="https://github.com/Bonziuu/Apex-AdBlocker/releases/latest/download/Apex-AdBlocker.zip" data-download>Pobierz dla Chrome <span aria-hidden="true">↓</span></a>
             <a class="text-link" href="#instalacja">Jak zainstalować <svg class="icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10"/></svg></a>
           </div>
           <p class="download-caption">Bezpłatny ZIP · Chrome 121+ na komputerze · instalacja ręczna</p>
