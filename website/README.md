@@ -22,6 +22,13 @@ Z katalogu repozytorium:
 Następnie otwórz lokalnie port 4173. Strona nie jest wdrożona na domenie.
 Do hostingu wystarczy zawartość katalogu website.
 
+Do bezpośredniego uploadu samych publicznych plików przygotuj ZIP:
+
+    node website/export-site.mjs
+
+Wynik: docs/website/Apex-Website-hosting.zip, z index.html w katalogu głównym.
+Instrukcja własnej domeny i hostingu: docs/website/HOSTING.pl.md.
+
 ## Przed publikacją
 
 - Wybrać hosting i domenę. Ustalić praktyki hostingu dotyczące logów, retencji
