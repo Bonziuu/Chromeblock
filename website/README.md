@@ -20,14 +20,26 @@ Z katalogu repozytorium:
     python3 -m http.server 4173 --bind 127.0.0.1 --directory website
 
 Następnie otwórz lokalnie port 4173. Strona nie jest wdrożona na domenie.
-Do hostingu wystarczy zawartość katalogu website.
+Podgląd lokalny marki: brand/index.html lub brand/en.html.
+Do publikacji dwóch domen użyj oddzielnych eksportów opisanych poniżej.
 
 Do bezpośredniego uploadu samych publicznych plików przygotuj ZIP:
 
     node website/export-site.mjs
 
-Wynik: docs/website/Apex-Website-hosting.zip, z index.html w katalogu głównym.
-Instrukcja własnej domeny i hostingu: docs/website/HOSTING.pl.md.
+Wyniki: docs/website/Apex-Brand-hosting.zip dla marki oraz
+docs/website/Apex-AdBlocker-hosting.zip dla produktu.
+Każda witryna ma czyste ścieżki /pl/ i /en/ oraz wspólne zasoby w swoim
+katalogu głównym. Dotychczasowy Apex-Website-hosting.zip jest kopią pakietu
+produktu. Nie wgrywaj całego katalogu website jako jednej z tych witryn.
+
+Planowane domeny edytuje się w website/deployment.config.json.
+Są niezweryfikowane; generator nie kupuje ich i nie publikuje plików.
+Pełna instrukcja: docs/website/HOSTING.pl.md.
+
+Test generatora:
+
+    node --test website/export-site.test.mjs
 
 ## Przed publikacją
 

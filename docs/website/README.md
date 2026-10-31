@@ -35,3 +35,14 @@ motywów i szerokości. Nie jest to certyfikacja dostępności.
 Nie jest to wynik testów działania rozszerzenia. Istniejące ograniczenia
 walidacji rozszerzenia i licencji cudzych filtrów pozostają opisane
 w docs/webstore/final-release-status.json.
+
+## Strona marki i dwie domeny
+
+Kod strony marki: website/brand/. Przygotowano dwa osobne pakiety
+Apex-Brand-hosting.zip oraz Apex-AdBlocker-hosting.zip z /pl/ i /en/.
+Nazwy domen są propozycjami, nadal wymagają potwierdzenia dostępności
+i własności. Instrukcja: HOSTING.pl.md.
+
+Podglądy marki mają prefiks brand-, np. brand-desktop-preview.png
+i brand-desktop-preview-en-dark.png. Kontrola obu eksportów:
+deployment-validation.json (lokalne serwowanie plików, bez publicznego wdrożenia).
